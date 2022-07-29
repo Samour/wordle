@@ -1,5 +1,5 @@
 from wordle.models.game import Challenge, Guess, GuessFeedback
-from .guess_checker import GuessChecker
+from .guess_checker import GuessChecker, DefaultGuessChecker
 
 
 class ChallengeInstance:
@@ -12,3 +12,7 @@ class ChallengeInstance:
     def make_guess(self, guess: Guess) -> GuessFeedback:
         self.guesses.append(guess)
         return self._guess_checker.get_feedback(self.challenge, guess)
+
+
+def create_instance(challenge: Challenge) -> ChallengeInstance:
+    return ChallengeInstance(challenge, DefaultGuessChecker())

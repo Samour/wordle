@@ -1,5 +1,17 @@
 @startuml
 
+title Top-level Module structure
+
+'Instructions:
+'This codebase is utilizing ports-and-adaptor and DI to ensure code cleanliness & prevent circular
+'dependencies.
+'Each direct child of root module (wordle) is an organisation module. If any component of an organisational
+'module imports another organisational model, record it in this module graph. Ensure that no circular
+'dependencies occur.
+
+'Test module can be disregarded for this purpose
+
 [game] --> [models]
+[models] --> [errors]
 
 @enduml

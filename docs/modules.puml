@@ -11,6 +11,15 @@ title Top-level Module structure
 
 'Test module can be disregarded for this purpose
 
+[play_cli]
+note top of play_cli
+    Entry point - play game via CLI
+end note
+
+[play_cli] --> [game]
+[play_cli] --> [models]
+[play_cli] --> [errors]
+
 [game] --> [models]
 [models] --> [errors]
 

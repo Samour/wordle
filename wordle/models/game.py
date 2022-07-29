@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from wordle.errors import IllegalWordLength
 
@@ -7,10 +7,18 @@ from wordle.errors import IllegalWordLength
 class Challenge:
 
     answer: str
+    guess_limit: int = field(default = 5)
 
     def __post_init__(self):
         if len(self.answer) != 5:
             raise IllegalWordLength()
+
+
+class ChallengeStatus(Enum):
+
+    IN_PROGRESS = 'IN_PROGRESS'
+    SOLVED = 'SOLVED'
+    FAILED = 'FAILED'
 
 
 @dataclass(frozen = True)

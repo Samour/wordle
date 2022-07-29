@@ -43,6 +43,11 @@ class TestDefaultGuessChecker(TestCase):
 
         self.assertEqual(result, GuessFeedback([ CharFeedback.CORRECT ] * 4 + [ CharFeedback.NOT_PRESENT ]))
 
+    def test_word_overused_letter_correct_later(self):
+        result = self.under_test.get_feedback(CHALLENGE, Guess('ebcde'))
+
+        self.assertEqual(result, GuessFeedback([ CharFeedback.NOT_PRESENT ] + [ CharFeedback.CORRECT ] * 4))
+
     def test_word_repeated_letters_fully_correct(self):
         result = self.under_test.get_feedback(CHALLENGE_WITH_REPEATED, Guess('hodor'))
 

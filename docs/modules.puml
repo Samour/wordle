@@ -11,16 +11,29 @@ title Top-level Module structure
 
 'Test module can be disregarded for this purpose
 
-[play_cli]
+[play_cli] --> [game]
 note top of play_cli
     Entry point - play game via CLI
 end note
 
-[play_cli] --> [game]
 [play_cli] --> [models]
 [play_cli] --> [errors]
 
+[solver_cli] --> [pattern_solver]
+note top of solver_cli
+    Entry point - invoke automated solvers
+end note
+
+[solver_cli] --> [game]
+
+[pattern_solver] --> [models]
+[pattern_solver] --> [game_api]
+
 [game] --> [models]
-[models] --> [errors]
+[game] --> [game_api]
+
+[game_api] --> [models]
+
+[models] -> [errors]
 
 @enduml

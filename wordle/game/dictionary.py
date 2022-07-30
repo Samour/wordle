@@ -1,7 +1,8 @@
 from pathlib import Path
+from wordle.game_api.dictionary import Dictionary
 
 
-class Dictionary:
+class BinarySearchDictionary(Dictionary):
 
     def __init__(self, words: list[str]):
         self.words = sorted(words)
@@ -25,7 +26,7 @@ class Dictionary:
 def load_from_file(fname: str) -> Dictionary:
     with open(fname, 'r', encoding='UTF-8') as handle:
         words = handle.readlines()
-        return Dictionary([ w.strip() for w in words ])
+        return BinarySearchDictionary([ w.strip() for w in words ])
 
 
 def load_default_dictionary() -> Dictionary:

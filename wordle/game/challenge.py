@@ -1,20 +1,28 @@
 from typing import Union
-from wordle.models.game import Challenge, Guess, GuessFeedback, CharFeedback, ChallengeStatus, GuessNotAWord
+from wordle.models.game import \
+    Challenge, \
+    Guess, \
+    GuessFeedback, \
+    CharFeedback, \
+    ChallengeStatus, \
+    GuessNotAWord, \
+    WORD_LENGTH
+from wordle.game_api.challenge import ChallengeProvider
 from .dictionary import Dictionary
 from .guess_checker import GuessChecker, DefaultGuessChecker
 
 
-_GUESS_CORRECT = GuessFeedback([ CharFeedback.CORRECT ] * 5)
+_GUESS_CORRECT = GuessFeedback([ CharFeedback.CORRECT ] * WORD_LENGTH)
 
 
-class ChallengeInstance:
+class ChallengeInstance(ChallengeProvider):
 
     def __init__(self, challenge: Challenge, dictionary: Dictionary, guess_checker: GuessChecker):
         self.challenge = challenge
         self.guesses: list[Guess] = []
+        self.challenge_status = ChallengeStatus.IN_PROGRESS
         self._dictionary = dictionary
         self._guess_checker = guess_checker
-        self.challenge_status = ChallengeStatus.IN_PROGRESS
 
     def make_guess(self, guess: Guess) -> Union[GuessFeedback, GuessNotAWord]:
         if not self._dictionary.contains_word(guess.guess):
@@ -33,5 +41,5 @@ class ChallengeInstance:
             self.challenge_status = ChallengeStatus.FAILED
 
 
-def create_instance(challenge: Challenge, dictionary: Dictionary) -> ChallengeInstance:
+def create_instance(challenge: Challenge, dictionary: Dictionary) -> ChallengeProvider:
     return ChallengeInstance(challenge, dictionary, DefaultGuessChecker())

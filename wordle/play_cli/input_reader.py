@@ -1,5 +1,5 @@
 from wordle.errors import IllegalWordLength
-from wordle.models.game import Guess
+from wordle.models.game import Guess, WORD_LENGTH
 from .interceptors.input_interceptor import InputInterceptor, InputContext
 from .errors import QuitGame
 
@@ -22,6 +22,6 @@ class StdInputReader(InputReader):
                 if not self._input_interceptor.intercept_input(InputContext.GUESS_LOOP, raw_guess):
                     return Guess(raw_guess.lower())
             except IllegalWordLength:
-                print('Your guess must contain exactly 5 letters')
+                print(f'Your guess must contain exactly {WORD_LENGTH} letters')
             except KeyboardInterrupt:
                 raise QuitGame

@@ -1,4 +1,4 @@
-from wordle.models.game import Challenge, Guess, GuessFeedback, CharFeedback
+from wordle.models.game import Challenge, Guess, GuessFeedback, CharFeedback, WORD_LENGTH
 
 
 class GuessChecker:
@@ -10,7 +10,7 @@ class GuessChecker:
 class DefaultGuessChecker(GuessChecker):
 
     def get_feedback(self, challenge: Challenge, guess: Guess) -> GuessFeedback:
-        char_feedbacks = [ CharFeedback.NOT_PRESENT ] * 5
+        char_feedbacks = [ CharFeedback.NOT_PRESENT ] * WORD_LENGTH
         used_letters = [ c for c in challenge.answer ]
         # Give "priority" to correct letter, correct position guesses
         for i, c in enumerate(guess.guess):

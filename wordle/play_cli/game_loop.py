@@ -1,5 +1,6 @@
 from wordle.models.game import ChallengeStatus, GuessNotAWord
 from wordle.game.challenge import ChallengeInstance
+from .interceptors.input_interceptor import InputInterceptor
 from .input_reader import InputReader, StdInputReader
 from .output_renderer import OutputRenderer, StdOutputRenderer
 
@@ -30,5 +31,5 @@ class GameLoop:
             self._output_renderer.print_loser_message()
 
 
-def create_game(challenge: ChallengeInstance) -> GameLoop:
-    return GameLoop(challenge, StdInputReader(), StdOutputRenderer())
+def create_game(challenge: ChallengeInstance, input_interceptor: InputInterceptor) -> GameLoop:
+    return GameLoop(challenge, StdInputReader(input_interceptor), StdOutputRenderer())

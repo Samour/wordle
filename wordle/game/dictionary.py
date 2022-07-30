@@ -10,7 +10,7 @@ class Dictionary:
         # Binary search
         lower_bound = 0
         upper_bound = len(self.words) - 1
-        while lower_bound < upper_bound:
+        while lower_bound + 1 < upper_bound:
             idx = (lower_bound + upper_bound) // 2
             if self.words[idx] < word:
                 lower_bound = idx
@@ -19,7 +19,7 @@ class Dictionary:
             else:
                 return True
         
-        return lower_bound == upper_bound and self.words[lower_bound] == word
+        return self.words[lower_bound] == word or self.words[upper_bound] == word
 
 
 def load_from_file(fname: str) -> Dictionary:

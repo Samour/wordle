@@ -1,4 +1,4 @@
-from wordle.models.game import ChallengeStatus
+from wordle.models.game import ChallengeStatus, GuessNotAWord
 from wordle.game.challenge import ChallengeInstance
 from .input_reader import InputReader, StdInputReader
 from .output_renderer import OutputRenderer, StdOutputRenderer
@@ -17,9 +17,12 @@ class GameLoop:
                 len(self._challenge.guesses),
                 self._challenge.challenge.guess_limit,
             )
-
             feedback = self._challenge.make_guess(guess)
-            self._output_renderer.print_guess_feedback(guess, feedback)
+
+            if isinstance(feedback, GuessNotAWord):
+                self._output_renderer.print_guess_not_a_word(guess)
+            else:
+                self._output_renderer.print_guess_feedback(guess, feedback)
 
         if self._challenge.challenge_status == ChallengeStatus.SOLVED:
             self._output_renderer.print_winner_message()

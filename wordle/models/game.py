@@ -46,3 +46,7 @@ class GuessFeedback:
     def __post_init__(self):
         if len(self.feedback) != 5:
             raise IllegalWordLength()
+
+
+class GuessNotAWord:
+    pass

@@ -9,7 +9,7 @@ def main():
     dictionary = load_default_dictionary()
     generator = ChallengeGenerator(dictionary)
     challenge = generator.generate_challenge()
-    game_loop = create_game(create_instance(challenge))
+    game_loop = create_game(create_instance(challenge, dictionary))
 
     try:
         game_loop.run()

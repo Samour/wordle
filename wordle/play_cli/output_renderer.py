@@ -6,6 +6,9 @@ class OutputRenderer:
     def print_guess_feedback(self, guess: Guess, feedback: GuessFeedback) -> None:
         pass
 
+    def print_guess_not_a_word(self, guess: Guess):
+        pass
+
     def print_winner_message(self) -> None:
         pass
 
@@ -36,6 +39,9 @@ class StdOutputRenderer(OutputRenderer):
         
         line_parts.append(_COLOUR_RESET)
         print(''.join(line_parts))
+
+    def print_guess_not_a_word(self, guess: Guess):
+        print(f'{guess.guess} is not a word')
 
     def print_winner_message(self) -> None:
         print(f'{_COLOUR_CORRECT}Congratulations! You solved the wordle{_COLOUR_RESET}')

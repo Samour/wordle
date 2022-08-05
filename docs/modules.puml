@@ -26,6 +26,7 @@ end note
 
 [solver_cli] --> [game]
 [solver_cli] --> [models]
+[solver_cli] --> [tools]
 
 [pattern_solver] --> [models]
 [pattern_solver] --> [game_api]

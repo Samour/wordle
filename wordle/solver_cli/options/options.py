@@ -3,16 +3,10 @@ from enum import Enum
 from dataclasses import dataclass
 
 
-class FilterGuessStrategy(Enum):
-
-    GUESS_FIRST = 'GUESS_FIRST'
-    GUESS_RANDOM = 'GUESS_RANDOM'
-
-
 @dataclass(frozen=True)
 class FilterStrategyOptions:
 
-    guess_strategy: FilterGuessStrategy
+    guess_strategy: str
 
 
 StrategyOptions = FilterStrategyOptions

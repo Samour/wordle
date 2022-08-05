@@ -7,7 +7,6 @@ from wordle.tools.chain import Chain
 from .options import \
     ChallengeSource, \
     DictionaryChallengeSource, \
-    FilterGuessStrategy, \
     FilterStrategyOptions, \
     ProvidedChallengeSource, \
     SolverOptions, \
@@ -55,13 +54,10 @@ def collate_options(options: tuple[OptionToken, ...]) -> dict[str, Union[str, bo
 
 
 def select_strategy(options: dict[str, Union[str, bool]]) -> StrategyOptions:
-    strategy_options: dict[Any, FilterGuessStrategy] = {
-        'first': FilterGuessStrategy.GUESS_FIRST,
-        'random': FilterGuessStrategy.GUESS_RANDOM,
-    }
-
     return FilterStrategyOptions(
-        guess_strategy=strategy_options.get(options['guess-strategy'], FilterGuessStrategy.GUESS_RANDOM),
+        guess_strategy=Chain(options['guess-strategy'])\
+            .apply(lambda x: x if isinstance(x, str) else None)\
+            .value or 'GuessRandomSelector',
     )
 
 
